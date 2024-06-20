@@ -2,12 +2,19 @@ import NextAuth from "next-auth"
 import CredientialsProvider from "next-auth/providers/credentials"
 import { convertTimestampToDate } from "./lib/utils";
 
-const BACKEND_ACCESS_TOKEN_LIFETIME =  1 * 24 * 60 * 60;            // 1 days
+const BACKEND_ACCESS_TOKEN_LIFETIME =  1 * 24 * 60 * 60;  // 1 days
 const BACKEND_REFRESH_TOKEN_LIFETIME = 6 * 24 * 60 * 60;  // 6 days
 
 const getCurrentEpochTime = () => {
   return Math.floor(new Date().getTime() / 1000);
 };
+
+interface Session {
+  access_token: string;
+  refresh_token: string;
+  user: any;
+  error: string;
+}
 
 export const { handlers: { GET, POST }, signIn, signOut, auth } = NextAuth({
   session: {
@@ -43,8 +50,7 @@ export const { handlers: { GET, POST }, signIn, signOut, auth } = NextAuth({
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        console.log(user)
-        let backendResponse = user;
+        let backendResponse = user as any;
         token["user"] = backendResponse.user!;
         token["access_token"] = backendResponse.access!;
         token["refresh_token"] = backendResponse.refresh!;
@@ -63,6 +69,7 @@ export const { handlers: { GET, POST }, signIn, signOut, auth } = NextAuth({
             "Content-Type": "application/json",
           }
         });
+
         token["access_token"] = response.data.access;
         token["refresh_token"] = response.data.refresh;
         token["ref"] = getCurrentEpochTime() + BACKEND_ACCESS_TOKEN_LIFETIME;
@@ -70,9 +77,8 @@ export const { handlers: { GET, POST }, signIn, signOut, auth } = NextAuth({
       return token;
     },
     async session({session, token}) {
-      session.user = token.user;
-      session.access_token = token.access_token;
-      session.error = token.error;
+      session.user = token.user as any;
+      session.access_token = token.access_token as string;
       return session;
     },
   },
