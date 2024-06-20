@@ -1,0 +1,10 @@
+user registration redirect to subscription page is not working
+	- bug details
+		- no plan are shown 
+		- after a second it is redirected to the dashboard page.
+		- dashboard throws error due to no subscription were done which causes data fetching problem.
+
+- Design Fixes
+	- make the hero text in landing page centered align in mobile view
+	- addding padding to the login page in mobile view
+	- adding padding to the register page in the mobile view
