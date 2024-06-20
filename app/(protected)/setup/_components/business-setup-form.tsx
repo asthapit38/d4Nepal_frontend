@@ -239,7 +239,7 @@ export const BusinessSetupForm = () => {
                           ))
                         ) : (
                           <p className="my-4 text-sm text-muted-foreground">
-                            You haven't selected any KPIs.
+                            {`You haven't selected any KPIs.`}
                           </p>
                         )}
                       </CardContent>

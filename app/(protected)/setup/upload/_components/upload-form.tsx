@@ -7,7 +7,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
-import { useCallback, useState, useTransition } from "react";
+import { useCallback, useState } from "react";
 import Dropzone, { FileRejection } from "react-dropzone";
 import { Image, Loader2, MousePointerSquareDashed } from "lucide-react";
 import { toast } from "sonner";
@@ -57,7 +57,7 @@ export const UploadForm = () => {
       formData.append("business_profile_id", businessId);
       mutate(formData);
     },
-    [mutate]
+    [mutate, businessId]
   );
   return (
     <Card className="lg:max-w-screen-sm w-full">

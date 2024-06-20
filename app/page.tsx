@@ -11,9 +11,9 @@ export default function Home() {
           <span>See the Story Your Data Tells</span>
         </h1>
         <p className="text-muted-foreground max-w-lg text-center">
-          We don't just analyze data, we bring it to life. Get stunning
+          {`We don't just analyze data, we bring it to life. Get stunning
           visualizations and actionable insights that tell a clear story,
-          guiding your business towards success.
+          guiding your business towards success.`}
         </p>
 
         <Link href={"/login"}>
