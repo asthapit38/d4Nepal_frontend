@@ -53,12 +53,9 @@ export const getUserSubcription = async () => {
             'Authorization': `Bearer ${session.access_token}`,
         },
     });
+
     if (!response.ok) {
-        if (response.status === 500) {
-            throw new Error('Internal Server Error');
-        }else {
-            throw new Error(`Error: ${response.status}`);
-        }
+        return [];
     }
     return response.json();
 }
