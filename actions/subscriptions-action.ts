@@ -56,9 +56,7 @@ export const getUserSubcription = async () => {
     if (!response.ok) {
         if (response.status === 500) {
             throw new Error('Internal Server Error');
-        } else if (response.status === 404) {
-            return null;
-        } else {
+        }else {
             throw new Error(`Error: ${response.status}`);
         }
     }

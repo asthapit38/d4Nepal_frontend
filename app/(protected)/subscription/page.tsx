@@ -4,7 +4,7 @@ import { PlanCard } from "./_components/plan-card";
 import { getUserSubcription } from "@/actions/subscriptions-action";
 import { redirect } from "next/navigation";
 
-const Page = async () => {
+const SubscriptionPage = async () => {
   const subscription = await getUserSubcription();
   if (subscription.length > 0) {
     redirect("/dashboard");
@@ -31,4 +31,4 @@ const Page = async () => {
   );
 };
 
-export default Page;
+export default SubscriptionPage;
