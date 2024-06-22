@@ -6,9 +6,9 @@ import { redirect } from "next/navigation";
 
 const SubscriptionPage = async () => {
   const subscription = await getUserSubcription();
-  if (subscription.length > 0) {
-    redirect("/dashboard");
-  }
+  // if (subscription.length > 0) {
+  //   redirect("/dashboard");
+  // }
   const plans = await getPlans();
   return (
     <div className="container">
@@ -18,16 +18,17 @@ const SubscriptionPage = async () => {
             <p className="text-3xl font-bold">Choose your plan</p>
           </div>
 
-          {JSON.stringify(subscription, null, 2)}
+          <pre>{JSON.stringify(subscription, null, 2)}</pre>
+          <pre>{JSON.stringify(plans, null, 2)}</pre>
 
-          {plans.length > 0 &&
+          {/* {plans.length > 0 &&
             plans.map((plan: Plan) => {
               return (
                 <div className="lg:col-span-4 col-span-12" key={plan.id}>
                   <PlanCard plan={plan} />
                 </div>
               );
-            })}
+            })} */}
         </div>
       </div>
     </div>
