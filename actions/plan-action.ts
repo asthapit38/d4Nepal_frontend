@@ -11,7 +11,7 @@ export const getPlans = async () => {
         redirect('/login?redirect=/subscription');
     }
 
-    const response = await fetch(`${process.env.NEXTAUTH_BACKEND_URL}/api/plans`, {
+    const response = await fetch(`${process.env.NEXTAUTH_BACKEND_URL}/api/plans/`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
