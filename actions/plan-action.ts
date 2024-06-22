@@ -21,6 +21,8 @@ export const getPlans = async () => {
     if (!response.ok) {
          if (response.status === 500) {
             throw new Error('Internal Server Error');
+         } else if (response.status === 400) {
+           return [];
         } else {
             throw new Error(`Error: ${response.status}`);
         }
