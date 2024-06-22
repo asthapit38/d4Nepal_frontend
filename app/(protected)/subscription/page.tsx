@@ -5,7 +5,7 @@ import { getUserSubcription } from "@/actions/subscriptions-action";
 import { redirect } from "next/navigation";
 
 const SubscriptionPage = async () => {
-  // const subscription = await getUserSubcription();
+  const subscription = await getUserSubcription();
   // if (subscription.length > 0) {
   //   redirect("/dashboard");
   // }
@@ -17,6 +17,8 @@ const SubscriptionPage = async () => {
           <div className="col-span-12">
             <p className="text-3xl font-bold">Choose your plan</p>
           </div>
+
+          {JSON.stringify(subscription, null, 2)}
 
           {/* {plans &&
             plans.map((plan: Plan) => {

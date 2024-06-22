@@ -55,7 +55,15 @@ export const getUserSubcription = async () => {
     });
 
     if (!response.ok) {
-        return [];
+        if (response.status === 500) {
+            console.log(response)
+            throw new Error('Internal Server Error');
+        } else if (response.status === 404) {
+            return [];
+        } else {
+            console.log(response)
+            throw new Error(`Error: ${response.status}`);
+        }
     }
     return response.json();
 }
