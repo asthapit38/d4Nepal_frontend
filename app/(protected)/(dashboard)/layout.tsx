@@ -22,6 +22,7 @@ type LayoutProps = {
 const ProtectedLayout = async ({ children }: LayoutProps) => {
   const userSubscription = await getUserSubcription();
   const userBusiness = await getBusiness();
+
   if (userSubscription.length === 0) {
     redirect("/subscription");
   }
