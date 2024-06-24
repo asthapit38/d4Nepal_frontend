@@ -16,7 +16,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { login } from "@/actions/login-action";
 import { toast } from "sonner";
-import { useRouter, useSearchParams } from "next/navigation";
+import { redirect, useRouter, useSearchParams } from "next/navigation";
 import { useMutation } from "@tanstack/react-query";
 import { useCallback } from "react";
 
@@ -34,18 +34,13 @@ export const LoginForm = () => {
 
   const { mutate, isPending } = useMutation({
     mutationFn: login,
-    onSuccess: () => {
+    onSuccess: async () => {
       toast.success("Logged in", {
         id: "login-toast",
       });
-      if (searchParams.has("redirect")) {
-        router.push(searchParams.get("redirect") as string);
-      } else {
-        router.push("/dashboard");
-      }
     },
     onError: (error: Error) => {
-      console.log(error);
+      console.log("Error from login mutation");
       toast.error("Invalid credentials", {
         id: "login-toast",
       });
@@ -57,7 +52,13 @@ export const LoginForm = () => {
       toast.loading("Logging in...", {
         id: "login-toast",
       });
-      mutate(data);
+      const request = {
+        credentials: data,
+        redirectLocation: searchParams.has("redirect")
+          ? (searchParams.get("redirect") as string)
+          : false,
+      };
+      mutate(request);
     },
     [mutate]
   );

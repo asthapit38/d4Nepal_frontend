@@ -27,7 +27,7 @@ export const { handlers: { GET, POST }, signIn, signOut, auth } = NextAuth({
         password: {},
       },
       authorize: async (credentials) => {
-        try {
+          // TODO: Add error handling to throw error user not found.
           const response = await fetch(process.env.NEXTAUTH_BACKEND_URL + "api/auth/login/", {
             method: "POST",
             headers: {
@@ -38,12 +38,15 @@ export const { handlers: { GET, POST }, signIn, signOut, auth } = NextAuth({
               password: credentials?.password,
             }),
           });
-          const data = await response.json();
-          if (data) return data;
-        } catch (error) {
-          console.error(error);
-        }
-        return null;
+
+          if(response.status === 400) {
+            throw new Error("Invalid credentials")
+          }else if(response.status === 500) {
+            throw new Error("Server error")
+          }else if(response.status === 200) {
+            const data = await response.json();
+            return data
+          }
       },
     }),
   ],
